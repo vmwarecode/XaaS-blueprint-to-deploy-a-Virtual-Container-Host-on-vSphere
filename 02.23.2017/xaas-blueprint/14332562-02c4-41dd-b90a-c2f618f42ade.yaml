@@ -1,0 +1,683 @@
+id:
+  id: "14332562-02c4-41dd-b90a-c2f618f42ade"
+workflowId: "e10aeed1-1c98-4551-ab7e-d8cd857de9b6"
+name: "Deploy Virtual Container Host"
+description: "Blueprint to provision Virtual Container Host on vSphere endpoint using\
+  \ vic-engine bundle."
+catalogRequestInfoHidden: true
+forms:
+- id: "94f02bfc-09ba-44e9-920d-d59a7661f118"
+  form:
+    name: "Request form"
+    designerLayout:
+      pages:
+      - id: "step0"
+        label: "Step"
+        sections:
+        - id: "__ASD_PRESENTATION_INSTANCE_SECTION"
+          rows:
+          - items:
+            - type: "field"
+              size: 2
+              id: "__ASD_PRESENTATION_INSTANCE"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              state:
+                dependencies: []
+                facets:
+                - type: "visible"
+                  value:
+                    type: "constantClause"
+                    value:
+                      type: "boolean"
+                      value: false
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+                - type: "derivedValue"
+                  value:
+                    type: "callback"
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 0
+              columns: []
+              customField: false
+              errors: []
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+          designerHidden: true
+          state:
+            dependencies: []
+            facets:
+            - type: "visible"
+              value:
+                type: "constantClause"
+                value:
+                  type: "boolean"
+                  value: false
+        - label: "Virtual Container Host Configuration"
+          rows:
+          - items:
+            - type: "field"
+              size: 4
+              id: "targetName"
+              label: "Select vSphere / ESXi Host"
+              description: "Select one of the target environments to deploy the Virtual\
+                \ Container Host."
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              permissibleValuesContext:
+                providerEntityId: "com.vmware.vra.vic/getAllTargets"
+                parameterMappings:
+                  params: []
+              state:
+                dependencies: []
+                facets:
+                - type: "defaultValue"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "string"
+                      value: "eso-local-esx-1"
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+                - type: "mandatory"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              columns: []
+              customField: false
+              errors: []
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+          - items:
+            - type: "field"
+              size: 4
+              id: "target-ip"
+              label: "ESXi / vCenter connection URL"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "defaultValue"
+                  value:
+                    type: "externalValue"
+                    dynamicValueProviderInfo:
+                      providerEntityId: "com.vmware.vra.vic/uiGetTargetIP"
+                      parameterMappings:
+                        params:
+                        - key: "targetName"
+                          value:
+                            type: "path"
+                            path: "targetName"
+                - type: "readOnly"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              columns: []
+              customField: true
+              errors: []
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+          - items:
+            - type: "field"
+              size: 4
+              id: "containerHostName"
+              label: "Virtual Container Host Name"
+              description: "The name of the Virtual Container Host."
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+                - type: "mandatory"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              columns: []
+              customField: false
+              errors: []
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+          - items:
+            - type: "field"
+              size: 4
+              id: "image_store"
+              label: "Image Datastore Path"
+              description: "Image datastore path in format \"datastore/path\""
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "defaultValue"
+                  value:
+                    type: "externalValue"
+                    dynamicValueProviderInfo:
+                      providerEntityId: "com.vmware.vra.vic/uiGetImageStore"
+                      parameterMappings:
+                        params:
+                        - key: "targetName"
+                          value:
+                            type: "path"
+                            path: "targetName"
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+                - type: "mandatory"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              columns: []
+              customField: false
+              errors: []
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+          - items:
+            - type: "field"
+              size: 4
+              id: "volume_store"
+              label: "Volume Datastore Path"
+              description: "Specify a list of location and label for volume store,\
+                \ e.g. \"datastore/path:label\" or \"datastore:label\"."
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "defaultValue"
+                  value:
+                    type: "externalValue"
+                    dynamicValueProviderInfo:
+                      providerEntityId: "com.vmware.vra.vic/uiGetVolumeStore"
+                      parameterMappings:
+                        params:
+                        - key: "targetName"
+                          value:
+                            type: "path"
+                            path: "targetName"
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+                - type: "mandatory"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              columns: []
+              customField: false
+              errors: []
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+          - items:
+            - type: "field"
+              size: 4
+              id: "public_network"
+              label: "Public Network Port Group"
+              description: "The public network port group name (port forwarding and\
+                \ default route). Defaults to 'VM Network'."
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "defaultValue"
+                  value:
+                    type: "externalValue"
+                    dynamicValueProviderInfo:
+                      providerEntityId: "com.vmware.vra.vic/uiGetExternalNetwork"
+                      parameterMappings:
+                        params:
+                        - key: "targetName"
+                          value:
+                            type: "path"
+                            path: "targetName"
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+                - type: "mandatory"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              columns: []
+              customField: false
+              errors: []
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+          - items:
+            - type: "field"
+              size: 4
+              id: "bridge_network"
+              label: "Bridge Network Port Group"
+              description: "The bridge network port group name (private port group\
+                \ for containers). Defaults to the Virtual Container Host name."
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              columns: []
+              customField: false
+              errors: []
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+          - items:
+            - type: "field"
+              size: 4
+              id: "static-ip-config"
+              label: "Static IP on Public Network"
+              dataType:
+                type: "primitive"
+                typeId: "BOOLEAN"
+              displayAdvice: "YES_NO"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "defaultValue"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              columns: []
+              customField: true
+              errors: []
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+          - items:
+            - type: "field"
+              size: 4
+              id: "public_network_gateway"
+              label: "Public Network Gateway"
+              description: "Gateway for the VCH on the public network, e.g. 10.0.0.1"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "visible"
+                  value:
+                    type: "path"
+                    path: "static-ip-config"
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              columns: []
+              customField: false
+              errors: []
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+          - items:
+            - type: "field"
+              size: 4
+              id: "public_network_ip"
+              label: "Public Network IP & Netmask"
+              description: "IP address with a network mask for the VCH on the public\
+                \ network, e.g. 10.0.1.2/24"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "visible"
+                  value:
+                    type: "path"
+                    path: "static-ip-config"
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              columns: []
+              customField: false
+              errors: []
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+          - items:
+            - type: "field"
+              size: 4
+              id: "dns_server"
+              label: "DNS Server"
+              description: "DNS server for the client, public, and management networks.\
+                \ Defaults to 8.8.8.8 and 8.8.4.4 when VCH uses static IP"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "visible"
+                  value:
+                    type: "path"
+                    path: "static-ip-config"
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              columns: []
+              customField: false
+              errors: []
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+          designerHidden: false
+          state:
+            dependencies: []
+            facets: []
+        state:
+          dependencies: []
+          facets:
+          - type: "visible"
+            value:
+              type: "constantClause"
+              value:
+                type: "boolean"
+                value: true
+  scenario:
+    usageClass: "SubmitUsage"
+    id: "Request.Submit"
+status: "PUBLISHED"
+statusName: "Published"
+version:
+  version: "1.0.1"
+  major: 1
+  minor: 0
+  micro: 1
+outputParameter:
+  id: "fc57c520-79c7-412a-86ea-fdfc0a3aead7"
+  name: "vchHost"
+  resourceType:
+    id:
+      id: "3d444acd-2eed-4937-99f8-5b887c8a4314"
+      tenant: "qe"
+    name: "Virtual Container Host"
+    description: "A virtual container host (VCH) is the functional equivalent of a\
+      \ Linux VM that runs Docker, but with some significant benefits."
+    vcoType: "DynamicTypes:VIC.VICHost"
+    tenantId: "qe"
+    providerId: "2fd49247-5400-446f-85bf-b4bacd3df1de"
+    detailsForm:
+      id: "e412a35b-85b9-4ff4-8231-01a073bde7c1"
+      form:
+        name: "Resource details form"
+        designerLayout:
+          pages:
+          - label: "VIC.VICHost"
+            sections:
+            - label: "Virtual Container Host"
+              rows:
+              - items:
+                - type: "field"
+                  size: 4
+                  id: "name"
+                  label: "Host Name"
+                  description: "Virtual Container Host Name."
+                  dataType:
+                    type: "primitive"
+                    typeId: "STRING"
+                  displayAdvice: "TEXTBOX"
+                  state:
+                    dependencies: []
+                    facets:
+                    - type: "readOnly"
+                      value:
+                        type: "constantClause"
+                        value:
+                          type: "boolean"
+                          value: true
+                  initialStaticState:
+                    dependencies: []
+                    facets: []
+                  labelDisplaySize: 2
+                  columns: []
+                  customField: false
+                  errors: []
+                  staticField: false
+                  refreshOnChange: false
+                  isMultiValued: false
+              - items:
+                - type: "field"
+                  size: 4
+                  id: "url"
+                  label: "URL"
+                  description: "URL"
+                  dataType:
+                    type: "primitive"
+                    typeId: "STRING"
+                  displayAdvice: "HYPERLINK"
+                  state:
+                    dependencies: []
+                    facets:
+                    - type: "readOnly"
+                      value:
+                        type: "constantClause"
+                        value:
+                          type: "boolean"
+                          value: true
+                  initialStaticState:
+                    dependencies: []
+                    facets: []
+                  labelDisplaySize: 2
+                  columns: []
+                  customField: false
+                  errors: []
+                  staticField: false
+                  refreshOnChange: false
+                  isMultiValued: false
+              designerHidden: false
+              state:
+                dependencies: []
+                facets: []
+            state:
+              dependencies: []
+              facets: []
+      scenario:
+        usageClass: "ReadOnlyUsage"
+        id: "Resource.Details"
+    version:
+      version: "1.0.0"
+      major: 1
+      minor: 0
+      micro: 0
+    builtIn: false
+component: true
+componentConfiguration:
+  scalable: true
+  categoryId: "designer.service"
+  operations:
+  - lifecycleType: "DESTROY"
+    routineId: "7c4b1148-458e-4d6e-b149-b3b460484cfa"
+    inputParameterName: "vicHost"
+builtIn: false

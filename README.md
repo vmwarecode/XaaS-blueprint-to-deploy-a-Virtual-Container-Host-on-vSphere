@@ -1,1 +1,0 @@
-# XaaS-blueprint-to-deploy-a-Virtual-Container-Host-on-vSphere

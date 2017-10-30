@@ -1,0 +1,91 @@
+id:
+  id: "3d444acd-2eed-4937-99f8-5b887c8a4314"
+name: "Virtual Container Host"
+description: "A virtual container host (VCH) is the functional equivalent of a Linux\
+  \ VM that runs Docker, but with some significant benefits."
+vcoType: "DynamicTypes:VIC.VICHost"
+providerId: "2fd49247-5400-446f-85bf-b4bacd3df1de"
+detailsForm:
+  id: "e412a35b-85b9-4ff4-8231-01a073bde7c1"
+  form:
+    name: "Resource details form"
+    designerLayout:
+      pages:
+      - label: "VIC.VICHost"
+        sections:
+        - label: "Virtual Container Host"
+          rows:
+          - items:
+            - type: "field"
+              size: 4
+              id: "name"
+              label: "Host Name"
+              description: "Virtual Container Host Name."
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "readOnly"
+                  value:
+                    type: "constantClause"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              columns: []
+              customField: false
+              errors: []
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+          - items:
+            - type: "field"
+              size: 4
+              id: "url"
+              label: "URL"
+              description: "URL"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "HYPERLINK"
+              state:
+                dependencies: []
+                facets:
+                - type: "readOnly"
+                  value:
+                    type: "constantClause"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              columns: []
+              customField: false
+              errors: []
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+          designerHidden: false
+          state:
+            dependencies: []
+            facets: []
+        state:
+          dependencies: []
+          facets: []
+  scenario:
+    usageClass: "ReadOnlyUsage"
+    id: "Resource.Details"
+version:
+  version: "1.0.0"
+  major: 1
+  minor: 0
+  micro: 0
+builtIn: false

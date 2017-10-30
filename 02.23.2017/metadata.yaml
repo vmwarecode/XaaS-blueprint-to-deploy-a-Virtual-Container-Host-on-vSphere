@@ -1,0 +1,10 @@
+name: "auto-generated-pkg-7cf2cec7-7d68-4736-b0f8-f38ba11dd923"
+productVersion: "7.3.0-SNAPSHOT"
+data:
+- locator: "xaas-blueprint/14332562-02c4-41dd-b90a-c2f618f42ade.yaml"
+  name: "Deploy Virtual Container Host"
+  dependencies:
+  - "xaas-resource-type/3d444acd-2eed-4937-99f8-5b887c8a4314.yaml"
+- locator: "xaas-resource-type/3d444acd-2eed-4937-99f8-5b887c8a4314.yaml"
+  name: "Virtual Container Host"
+exportTime: "2017-02-23T19:45:29.539Z"
